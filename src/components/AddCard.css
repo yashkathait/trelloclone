@@ -1,0 +1,16 @@
+.outercard {
+  padding-top: 16px;
+  padding-bottom: 12px;
+}
+.card {
+  display: flex;
+}
+.plus_icon {
+  padding-top: 4px;
+  padding-left: 8px;
+  padding-right: 4px;
+  color: grey;
+}
+.text {
+  color: grey;
+}

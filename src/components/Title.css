@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  padding-left: 8px;
+}
+.icon {
+  flex-grow: 1;
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 8px;
+}
+.form {
+  display: flex;
+}
+.input {
+  width: 100%;
+}

@@ -1,6 +1,7 @@
 .container {
   display: flex;
   padding-left: 8px;
+  cursor: pointer;
 }
 .icon {
   flex-grow: 1;

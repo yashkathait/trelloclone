@@ -1,26 +1,21 @@
-const initialData = {
-  list: [],
-};
+const initialData = [
+  {
+    title: "Last Episode",
+    id: 0,
+    cards: [
+      {
+        id: 0,
+        text: "Static List",
+      },
+      {
+        id: 1,
+        text: "Static List",
+      },
+    ],
+  },
+];
 const addReducer = (state = initialData, action) => {
   switch (action.type) {
-    case "ADD_CARD":
-      const { id, data } = action.payload;
-      if (data === "") {
-        return {
-          ...state,
-        };
-      }
-      return {
-        ...state,
-        list: [
-          ...state.list,
-          {
-            id: id,
-            data: data,
-          },
-        ],
-      };
-
     default:
       return state;
   }

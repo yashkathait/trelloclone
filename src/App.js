@@ -1,10 +1,11 @@
 import "./App.css";
-import List from "./components/List";
+import TrelloList from "./components/TrelloList";
 
 function App() {
   return (
     <div className="app">
-      <List />
+      <h2>Trello</h2>
+      <TrelloList />
     </div>
   );
 }

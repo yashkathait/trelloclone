@@ -2,10 +2,10 @@ import React from "react";
 import { Card, Typography } from "@material-ui/core";
 import "./TrelloCard.css";
 
-const TrelloCard = ({ title }) => {
+const TrelloCard = ({ text, id }) => {
   return (
     <Card className="card">
-      <Typography>Word of Day</Typography>
+      <Typography>{text}</Typography>
     </Card>
   );
 };

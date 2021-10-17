@@ -3,7 +3,7 @@
   background-color: #dadada;
   color: grey;
   display: flex;
-  width: 300px;
+  width: 200px;
   height: 40px;
   padding-top: 12px;
   border-radius: 4px;
@@ -16,9 +16,9 @@
 .bg {
   margin-left: 4px;
   background-color: #dadada;
+  border-radius: 4px;
 }
 .textarea {
-  display: flex;
   cursor: pointer;
   align-items: center;
   border-radius: 4px;

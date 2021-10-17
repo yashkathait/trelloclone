@@ -5,12 +5,18 @@ import { useSelector } from "react-redux";
 
 function App() {
   const list = useSelector((state) => state.addReducer.list);
+
   return (
     <div className="app">
       <h2>Trello</h2>
       <div className="list">
         {list.map((list) => (
-          <TrelloList key={list.id} title={list.title} cards={list.cards} />
+          <TrelloList
+            Listid={list.id}
+            key={list.id}
+            title={list.title}
+            cards={list.cards}
+          />
         ))}
         <AddCard list />
       </div>

@@ -1,0 +1,7 @@
+.edit {
+  background-color: rgb(50, 218, 50);
+}
+.delete {
+  background-color: red;
+  margin-left: 4px;
+}

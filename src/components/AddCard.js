@@ -17,7 +17,7 @@ const AddCard = ({ Listid }) => {
   };
   const submitHandler = (event) => {
     event.preventDefault();
-    // console.log("asd");s
+
     setInput("");
     setOpenArea(false);
   };
@@ -53,7 +53,6 @@ const AddCard = ({ Listid }) => {
           <div className="icon">
             <AiOutlinePlus />
           </div>
-          {console.log(Listid)}
           {buttonText}
         </AddCardButton>
       )}

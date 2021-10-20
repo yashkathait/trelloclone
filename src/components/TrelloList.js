@@ -4,10 +4,12 @@ import { useDispatch } from "react-redux";
 import { editList } from "../reducer/action/action";
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
+import { Droppable } from "react-beautiful-dnd";
 import TrelloCard from "./TrelloCard";
+
 import "./TrelloList.css";
 
-const TrelloList = ({ title, cards, Listid }) => {
+const TrelloList = ({ title, cards, Listid, listIndex }) => {
   const dispatch = useDispatch();
   const [input, setInput] = useState(title);
   const [openEdit, setOpenEdit] = useState(false);
@@ -22,32 +24,43 @@ const TrelloList = ({ title, cards, Listid }) => {
   };
 
   return (
-    <div className="container">
-      {openEdit ? (
-        <form onSubmit={submitHandler} className="editform">
-          <input
-            value={input}
-            className="editListForm"
-            onChange={handleChange}
-          />
-          <div className="deleteicon">
-            <MdDelete />
-          </div>
-        </form>
-      ) : (
-        <div>
-          <h4 className="title" onClick={() => setOpenEdit(true)}>
-            {title}
-          </h4>
-          <div>
-            {cards.map((card) => (
-              <TrelloCard text={card.text} key={card.id} />
-            ))}
-          </div>
-          <AddCard Listid={Listid} />
+    <Droppable droppableId={String(Listid)}>
+      {(provided) => (
+        <div className="container">
+          {openEdit ? (
+            <form onSubmit={submitHandler} className="editform">
+              <input
+                value={input}
+                className="editListForm"
+                onChange={handleChange}
+              />
+              <div className="deleteicon">
+                <MdDelete />
+              </div>
+            </form>
+          ) : (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              <h4 className="title" onClick={() => setOpenEdit(true)}>
+                {title}
+              </h4>
+              <div>
+                {cards.map((card, index) => (
+                  <TrelloCard
+                    listIndex={listIndex}
+                    index={index}
+                    text={card.text}
+                    key={card.id}
+                    id={card.id}
+                  />
+                ))}
+              </div>
+              <AddCard Listid={Listid} />
+              {provided.placeholder}
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </Droppable>
   );
 };
 export default TrelloList;

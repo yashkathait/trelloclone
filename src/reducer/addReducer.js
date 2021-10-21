@@ -114,15 +114,19 @@ const addReducer = (state = initialData, action) => {
     case EDIT_CARD:
       const currentList = state.list;
       const listCardIndex = action.payload.listIndex;
-      const editCard = state.list[listCardIndex].cards.map((card) => {
+      currentList[listCardIndex].cards.map((card) => {
         if (card.id === action.payload.id) {
           card.text = action.payload.text;
+          return {
+            ...card,
+          };
+        } else {
+          return card;
         }
       });
-      currentList[listCardIndex].cards = editCard;
       return {
-        ...state,
-        currentList: [...currentList],
+        ...state.list,
+        list: [...currentList],
       };
 
     case DELETE_CARD:
@@ -143,14 +147,20 @@ const addReducer = (state = initialData, action) => {
       const droppableIdDestination = action.payload.droppableIdDestination;
       const sourceIndex = action.payload.sourceIndex;
       const destinationIndex = action.payload.destinationIndex;
+      const find = state.list.find(
+        (list) => droppableIdSoucer === list.id.toString()
+      );
+      const put = state.list.find(
+        (list) => droppableIdDestination === list.id.toString()
+      );
       if (droppableIdSoucer === droppableIdDestination) {
-        const find = state.list.find(
-          (list) => droppableIdSoucer === list.id.toString()
-        );
-
         var toMove = find.cards[sourceIndex];
         find.cards.splice(sourceIndex, 1);
         find.cards.splice(destinationIndex, 0, toMove);
+      } else {
+        var toShift = find.cards[sourceIndex];
+        find.cards.splice(sourceIndex, 1);
+        put.cards.splice(destinationIndex, 0, toShift);
       }
 
     default:

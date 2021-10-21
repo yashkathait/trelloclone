@@ -27,12 +27,12 @@ export const editList = (Listid, title) => {
   };
 };
 export const editCard = (id, text, listIndex) => {
-  console.log(listIndex);
   return {
     type: "EDIT_CARD",
     payload: {
       id: id,
       text: text,
+      listIndex: listIndex,
     },
   };
 };

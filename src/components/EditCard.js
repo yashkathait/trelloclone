@@ -1,4 +1,5 @@
 import React from "react";
+import OutsideClickHandler from "react-outside-click-handler";
 import { useState } from "react";
 import { editCard, deleteCard } from "../reducer/action/action";
 import { useDispatch } from "react-redux";
@@ -16,25 +17,31 @@ const EditCard = ({ text, id, setOpenCard, openCard, listIndex }) => {
   return (
     <div>
       <form onSubmit={submitHandler}>
-        <input value={editInput} onChange={changeHandler} />
-        <AddCardButton
-          onClick={() => {
-            dispatach(editCard(id, editInput, listIndex));
+        <OutsideClickHandler
+          onOutsideClick={() => {
             setOpenCard(!openCard);
           }}
-          className="edit"
         >
-          Save
-        </AddCardButton>
-        <AddCardButton
-          onClick={() => {
-            dispatach(deleteCard(id, listIndex));
-            setOpenCard(!openCard);
-          }}
-          className="delete"
-        >
-          Delete
-        </AddCardButton>
+          <input value={editInput} onChange={changeHandler} />
+          <AddCardButton
+            onClick={() => {
+              dispatach(editCard(id, editInput, listIndex));
+              setOpenCard(!openCard);
+            }}
+            className="edit"
+          >
+            Save
+          </AddCardButton>
+          <AddCardButton
+            onClick={() => {
+              dispatach(deleteCard(id, listIndex));
+              setOpenCard(!openCard);
+            }}
+            className="delete"
+          >
+            Delete
+          </AddCardButton>
+        </OutsideClickHandler>
       </form>
     </div>
   );

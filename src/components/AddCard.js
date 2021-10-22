@@ -6,6 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
 import AddCardButton from "./AddCardButton";
 import "./AddCard.css";
+import OutsideClickHandler from "react-outside-click-handler";
 
 const AddCard = ({ Listid }) => {
   const [openArea, setOpenArea] = useState(false);
@@ -32,20 +33,24 @@ const AddCard = ({ Listid }) => {
       {openArea ? (
         <div className="bg">
           <form onSubmit={submitHandler}>
-            <input
-              className="textarea"
-              placeholder="Enter the text for card"
-              onChange={handleChange}
-              value={input}
-            />
-            <div className="form">
-              <AddCardButton onClick={Listid ? addCardHandler : addListHandler}>
-                Add Card
-              </AddCardButton>
-              <div className="cross">
-                <ImCross onClick={() => setOpenArea(false)} />
+            <OutsideClickHandler onOutsideClick={() => setOpenArea(!openArea)}>
+              <input
+                className="textarea"
+                placeholder="Enter the text for card"
+                onChange={handleChange}
+                value={input}
+              />
+              <div className="form">
+                <AddCardButton
+                  onClick={Listid ? addCardHandler : addListHandler}
+                >
+                  Add Card
+                </AddCardButton>
+                <div className="cross">
+                  <ImCross onClick={() => setOpenArea(false)} />
+                </div>
               </div>
-            </div>
+            </OutsideClickHandler>
           </form>
         </div>
       ) : (

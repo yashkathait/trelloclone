@@ -45,6 +45,14 @@ export const deleteCard = (id, listIndex) => {
     },
   };
 };
+export const deleteList = (Listid) => {
+  return {
+    type: "DELETE_LIST",
+    payload: {
+      Listid: Listid,
+    },
+  };
+};
 export const sort = (
   sourceIndex,
   destinationIndex,

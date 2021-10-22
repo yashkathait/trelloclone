@@ -5,6 +5,7 @@ import {
   EDIT_CARD,
   DELETE_CARD,
   DRAG_HAPPEN,
+  DELETE_LIST,
 } from "../components/Constant";
 
 const initialData = {
@@ -34,18 +35,6 @@ const initialData = {
         {
           id: 6,
           text: "Static List 4",
-        },
-        {
-          id: 7,
-          text: "Static List 5",
-        },
-        {
-          id: 8,
-          text: "Static List 6",
-        },
-        {
-          id: 9,
-          text: "Static List 7",
         },
       ],
     },
@@ -111,6 +100,15 @@ const addReducer = (state = initialData, action) => {
         ...state,
         list: newList,
       };
+    case DELETE_LIST:
+      const deletedList = state.list.filter(
+        (list) => list.id !== action.payload.Listid
+      );
+      return {
+        ...state,
+        list: deletedList,
+      };
+
     case EDIT_CARD:
       const currentList = state.list;
       const listCardIndex = action.payload.listIndex;

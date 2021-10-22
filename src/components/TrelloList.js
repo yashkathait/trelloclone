@@ -1,7 +1,7 @@
 import React from "react";
 import AddCard from "./AddCard";
 import { useDispatch } from "react-redux";
-import { editList } from "../reducer/action/action";
+import { editList, deleteList } from "../reducer/action/action";
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { Droppable } from "react-beautiful-dnd";
@@ -35,7 +35,7 @@ const TrelloList = ({ title, cards, Listid, listIndex }) => {
                 onChange={handleChange}
               />
               <div className="deleteicon">
-                <MdDelete />
+                <MdDelete onClick={() => dispatch(deleteList(Listid))} />
               </div>
             </form>
           ) : (

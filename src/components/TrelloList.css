@@ -46,7 +46,6 @@
 
 .trello-list-container {
   display: flex;
-  min-width: 100vh;
   overflow-x: scroll;
   padding-bottom: 400px;
   -ms-overflow-style: none; /* IE and Edge */

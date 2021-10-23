@@ -8,8 +8,6 @@ class LocalStorageManager {
   static getData = () => reactLocalStorage.getObject(KEY_NAME);
 
   static clearData = () => reactLocalStorage.remove(KEY_NAME);
-
-  static stringifyJson = (data) => (data != null ? JSON.stringify(data) : "");
 }
 
 export default LocalStorageManager;

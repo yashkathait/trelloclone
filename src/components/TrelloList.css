@@ -44,6 +44,19 @@
   color: white;
 }
 
+.trello-list-container {
+  display: flex;
+  min-width: 100vh;
+  overflow-x: scroll;
+  padding-bottom: 400px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+
+.trello-list-container::-webkit-scrollbar {
+  display: none;
+}
+
 @media screen and (max-width: 640px) {
   .container {
     width: 300px;

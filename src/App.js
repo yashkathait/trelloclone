@@ -47,7 +47,7 @@ function App() {
             Trello
           </Typography>
         </div>
-        <div style={{ display: "flex" }}>
+        <div className="trello-list-container">
           <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
               <div

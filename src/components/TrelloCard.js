@@ -28,7 +28,7 @@ const TrelloCard = ({ text, id, index, listIndex }) => {
               />
             ) : (
               <div className="ca">
-                <div>
+                <div style={{ wordBreak: "break-all" }}>
                   <Typography>{text}</Typography>
                 </div>
 

@@ -22,7 +22,11 @@ const EditCard = ({ text, id, setOpenCard, openCard, listIndex }) => {
             setOpenCard(!openCard);
           }}
         >
-          <input value={editInput} onChange={changeHandler} />
+          <input
+            value={editInput}
+            onChange={changeHandler}
+            className="editinput"
+          />
           <AddCardButton
             onClick={() => {
               dispatach(editCard(id, editInput, listIndex));
@@ -30,7 +34,7 @@ const EditCard = ({ text, id, setOpenCard, openCard, listIndex }) => {
             }}
             className="edit"
           >
-            Save
+            <b>Save</b>
           </AddCardButton>
           <AddCardButton
             onClick={() => {
@@ -39,7 +43,7 @@ const EditCard = ({ text, id, setOpenCard, openCard, listIndex }) => {
             }}
             className="delete"
           >
-            Delete
+            <b>Delete</b>
           </AddCardButton>
         </OutsideClickHandler>
       </form>

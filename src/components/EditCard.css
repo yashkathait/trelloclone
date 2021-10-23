@@ -1,7 +1,25 @@
+.editinput {
+  width: 90%;
+  margin-bottom: 4px;
+}
 .edit {
   background-color: rgb(50, 218, 50);
+  border-radius: 4px;
+  height: 28px;
+  cursor: pointer;
+  color: white;
+}
+.edit:hover {
+  opacity: 0.5;
 }
 .delete {
   background-color: red;
   margin-left: 4px;
+  border-radius: 4px;
+  height: 28px;
+  cursor: pointer;
+  color: white;
+}
+.delete:hover {
+  opacity: 0.5;
 }

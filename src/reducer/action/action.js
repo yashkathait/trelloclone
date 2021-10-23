@@ -1,3 +1,11 @@
+import { GET_LIST } from "../../components/Constant";
+
+export const getList = () => {
+  return {
+    type: GET_LIST,
+  };
+};
+
 export const addList = (title) => {
   return {
     type: "ADD_LIST",
@@ -57,7 +65,9 @@ export const sort = (
   sourceIndex,
   destinationIndex,
   droppableIdSoucer,
-  droppableIdDestination
+  droppableIdDestination,
+  draggableId,
+  type
 ) => {
   return {
     type: "DRAG_HAPPEN",
@@ -66,6 +76,8 @@ export const sort = (
       destinationIndex: destinationIndex,
       droppableIdSoucer: droppableIdSoucer,
       droppableIdDestination: droppableIdDestination,
+      draggableId: draggableId,
+      type: type,
     },
   };
 };

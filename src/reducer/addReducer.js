@@ -6,65 +6,66 @@ import {
   DELETE_CARD,
   DRAG_HAPPEN,
   DELETE_LIST,
+  GET_LIST,
 } from "../components/Constant";
+import LocalStorageManager from "../database/localstorage";
 
 const initialData = {
   list: [
     {
-      title: "Last Episode",
+      title: "To do",
       id: 1,
-      cards: [
-        {
-          id: 2,
-          text: "Static List1",
-        },
-        {
-          id: 3,
-          text: "Static List2",
-        },
-      ],
-    },
-    {
-      title: "This Episode",
-      id: 4,
-      cards: [
-        {
-          id: 5,
-          text: "Static List 3",
-        },
-        {
-          id: 6,
-          text: "Static List 4",
-        },
-      ],
+      cards: [],
     },
   ],
 };
 const addReducer = (state = initialData, action) => {
   switch (action.type) {
-    case ADD_LIST:
-      const { title, id, cards } = action.payload;
-      if (title === "") {
+    case GET_LIST:
+      const data = LocalStorageManager.getData();
+      if (data != null) {
+        return {
+          ...state,
+          list: data,
+        };
+      } else {
         return {
           ...state,
         };
       }
+
+    case ADD_LIST: {
+      const { title, id, cards } = action.payload;
+      if (title === "" || title == null) {
+        return {
+          ...state,
+        };
+      }
+      const list = [
+        ...state.list,
+        {
+          title: title,
+          id: id,
+          cards: cards,
+        },
+      ];
+      LocalStorageManager.addData(list);
       return {
         ...state,
-        list: [
-          ...state.list,
-          {
-            title: title,
-            id: id,
-            cards: cards,
-          },
-        ],
+        list,
       };
-    case ADD_CARD:
+    }
+    case ADD_CARD: {
       const newCard = {
         id: Math.random().toString(),
         text: action.payload.text,
       };
+
+      if (action.payload.text === "" || action.payload.text == null) {
+        return {
+          ...state,
+        };
+      }
 
       const newState = state.list.map((list) => {
         if (list.id === action.payload.Listid) {
@@ -76,16 +77,15 @@ const addReducer = (state = initialData, action) => {
           return list;
         }
       });
-      if (action.payload.text === "") {
-        return {
-          ...state,
-        };
-      }
+
+      LocalStorageManager.addData(newState);
+
       return {
         ...state,
         list: newState,
       };
-    case EDIT_LIST:
+    }
+    case EDIT_LIST: {
       const newList = state.list.map((list) => {
         if (list.id === action.payload.Listid) {
           list.title = action.payload.title;
@@ -96,14 +96,17 @@ const addReducer = (state = initialData, action) => {
           return list;
         }
       });
+      LocalStorageManager.addData(newList);
       return {
         ...state,
         list: newList,
       };
+    }
     case DELETE_LIST:
       const deletedList = state.list.filter(
         (list) => list.id !== action.payload.Listid
       );
+      LocalStorageManager.addData(deletedList);
       return {
         ...state,
         list: deletedList,
@@ -122,6 +125,7 @@ const addReducer = (state = initialData, action) => {
           return card;
         }
       });
+      LocalStorageManager.addData(currentList);
       return {
         ...state.list,
         list: [...currentList],
@@ -135,23 +139,29 @@ const addReducer = (state = initialData, action) => {
       );
 
       list[listIndex].cards = deletedCard;
-
+      LocalStorageManager.addData(list);
       return {
         ...state,
         list: [...list],
       };
-    case DRAG_HAPPEN:
+    case DRAG_HAPPEN: {
       const droppableIdSoucer = action.payload.droppableIdSoucer;
       const droppableIdDestination = action.payload.droppableIdDestination;
       const sourceIndex = action.payload.sourceIndex;
       const destinationIndex = action.payload.destinationIndex;
+      const draggableId = action.payload.draggableId;
       const find = state.list.find(
         (list) => droppableIdSoucer === list.id.toString()
       );
       const put = state.list.find(
         (list) => droppableIdDestination === list.id.toString()
       );
-      if (droppableIdSoucer === droppableIdDestination) {
+
+      if (action.payload.type === "list") {
+        var updatedList = state.list[sourceIndex];
+        state.list.splice(sourceIndex, 1);
+        state.list.splice(destinationIndex, 0, updatedList);
+      } else if (droppableIdSoucer === droppableIdDestination) {
         var toMove = find.cards[sourceIndex];
         find.cards.splice(sourceIndex, 1);
         find.cards.splice(destinationIndex, 0, toMove);
@@ -160,6 +170,13 @@ const addReducer = (state = initialData, action) => {
         find.cards.splice(sourceIndex, 1);
         put.cards.splice(destinationIndex, 0, toShift);
       }
+
+      LocalStorageManager.addData(state.list);
+
+      return {
+        ...state,
+      };
+    }
 
     default:
       return state;

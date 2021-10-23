@@ -4,10 +4,11 @@ import { useDispatch } from "react-redux";
 import { editList, deleteList } from "../reducer/action/action";
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
-import { Droppable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import TrelloCard from "./TrelloCard";
 
 import "./TrelloList.css";
+import OutsideClickHandler from "react-outside-click-handler";
 
 const TrelloList = ({ title, cards, Listid, listIndex }) => {
   const dispatch = useDispatch();
@@ -24,43 +25,64 @@ const TrelloList = ({ title, cards, Listid, listIndex }) => {
   };
 
   return (
-    <Droppable droppableId={String(Listid)}>
+    <Draggable
+      index={listIndex}
+      draggableId={String(Listid)}
+      listIndex={listIndex}
+    >
       {(provided) => (
-        <div className="container">
-          {openEdit ? (
-            <form onSubmit={submitHandler} className="editform">
-              <input
-                value={input}
-                className="editListForm"
-                onChange={handleChange}
-              />
-              <div className="deleteicon">
-                <MdDelete onClick={() => dispatch(deleteList(Listid))} />
+        <div
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+          {...provided.dragHandleProps}
+        >
+          <Droppable droppableId={String(Listid)}>
+            {(provided) => (
+              <div className="container">
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {openEdit ? (
+                    <OutsideClickHandler
+                      onOutsideClick={() => setOpenEdit(!openEdit)}
+                    >
+                      <form onSubmit={submitHandler} className="editform">
+                        <input
+                          value={input}
+                          className="editListForm"
+                          onChange={handleChange}
+                        />
+                        <div className="deleteicon">
+                          <MdDelete
+                            onClick={() => dispatch(deleteList(Listid))}
+                          />
+                        </div>
+                      </form>
+                    </OutsideClickHandler>
+                  ) : (
+                    <h4 className="title" onClick={() => setOpenEdit(true)}>
+                      {title}
+                    </h4>
+                  )}
+
+                  <div>
+                    {cards.map((card, index) => (
+                      <TrelloCard
+                        listIndex={listIndex}
+                        index={index}
+                        text={card.text}
+                        key={card.id}
+                        id={card.id}
+                      />
+                    ))}
+                  </div>
+                  <AddCard Listid={Listid} />
+                  {provided.placeholder}
+                </div>
               </div>
-            </form>
-          ) : (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              <h4 className="title" onClick={() => setOpenEdit(true)}>
-                {title}
-              </h4>
-              <div>
-                {cards.map((card, index) => (
-                  <TrelloCard
-                    listIndex={listIndex}
-                    index={index}
-                    text={card.text}
-                    key={card.id}
-                    id={card.id}
-                  />
-                ))}
-              </div>
-              <AddCard Listid={Listid} />
-              {provided.placeholder}
-            </div>
-          )}
+            )}
+          </Droppable>
         </div>
       )}
-    </Droppable>
+    </Draggable>
   );
 };
 export default TrelloList;

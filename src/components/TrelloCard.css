@@ -9,6 +9,7 @@
   align-items: center;
 }
 .editicon {
+  display: none;
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;

@@ -44,7 +44,7 @@ const AddCard = ({ Listid }) => {
                 <AddCardButton
                   onClick={Listid ? addCardHandler : addListHandler}
                 >
-                  Add Card
+                  {Listid ? <b>Add Card</b> : <b>Add List</b>}
                 </AddCardButton>
                 <div className="cross">
                   <ImCross onClick={() => setOpenArea(false)} />

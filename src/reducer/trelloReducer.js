@@ -23,7 +23,7 @@ const addReducer = (state = initialData, action) => {
   switch (action.type) {
     case GET_LIST:
       const data = LocalStorageManager.getData();
-      console.log(data);
+
       if (data != null && data.length > 0) {
         return {
           ...state,

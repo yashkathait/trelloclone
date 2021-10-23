@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import addReducer from "./addReducer";
+import trelloReducer from "./trelloReducer";
 
 const rootReducer = combineReducers({
-  addReducer,
+  trelloReducer,
 });
 
 export default rootReducer;

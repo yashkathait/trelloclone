@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import "./App.css";
 import { Droppable } from "react-beautiful-dnd";
-import TrelloList from "./components/TrelloList";
-import AddCard from "./components/AddCard";
+import TrelloList from "../../components/TrelloList";
+import AddCard from "../../components/AddCard";
 import { useSelector } from "react-redux";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
-import { sort, getList } from "./reducer/action/action";
+import { sort, getList } from "../../reducer/action/action";
 import { Typography } from "@material-ui/core";
 
 function App() {
-  const list = useSelector((state) => state.addReducer.list);
+  const list = useSelector((state) => state.trelloReducer.list);
   const dispatch = useDispatch();
 
   useEffect(() => {

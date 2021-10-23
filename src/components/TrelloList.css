@@ -10,6 +10,7 @@
   padding-left: 8px;
   margin: 8px;
   cursor: pointer;
+  word-break: break-all;
 }
 .editform {
   display: flex;
